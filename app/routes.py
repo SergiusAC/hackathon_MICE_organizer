@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 from miceapp import app
 from .forms import AddEventForm, LoginForm, RegistrationForm
@@ -8,11 +8,13 @@ from . import db
 
 
 @app.route('/', methods=['GET'])
+@login_required
 def index():
     return render_template('app_base.html')
 
 
 @app.route('/add_event', methods=['GET', 'POST'])
+@login_required
 def add_event():
     form = AddEventForm()
     if form.validate_on_submit():
@@ -33,35 +35,41 @@ def add_event():
 
 
 @app.route('/show_event/<int:id>', methods=['GET', 'POST'])
+@login_required
 def show_event(id):
     event = Event.query.get(id)
     return render_template('show_event.html', event=event)
 
 
 @app.route('/events_list', methods=['GET'])
+@login_required
 def events_list():
     events = Event.query.filter_by(organizer_id=current_user.id).all()
     return render_template('events_list.html', events=events)
 
 
 @app.route('/admin/', methods=['GET'])
+@login_required
 def admin_index():
     return render_template('admin/index.html')
 
 
 @app.route('/admin/orgs', methods=['GET'])
+@login_required
 def admin_orgs():
     orgs = AppUser.query.filter_by(is_admin=False).all()
     return render_template('admin/orgs_list.html', orgs=orgs)
 
 
 @app.route('/admin/events', methods=['GET'])
+@login_required
 def admin_events():
     events = Event.query.all()
     return render_template('admin/events_list.html', events=events)
 
 
 @app.route('/admin/orgs/<int:org_id>/events', methods=['GET'])
+@login_required
 def admin_events_org(org_id):
     org = AppUser.query.get(org_id)
     events = org.events
@@ -69,6 +77,7 @@ def admin_events_org(org_id):
 
 
 @app.route('/admin/events/<int:id>')
+@login_required
 def admin_event_details(id):
     event = Event.query.get(id)
     return render_template('admin/event_details.html', event=event)
