@@ -1,0 +1,65 @@
+{% extends 'app_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title is-4">Добавление мероприятия</h2>
+    <div class="columns">
+        <div class="column is-half">
+            <form action="{{ url_for('add_event') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    {{ form.name.label(class='label') }}
+                    {{ form.name(class='input is-small') }}
+                </div>
+
+                <div class="field">
+                    {{ form.desc.label(class='label') }}
+                    {{ form.desc(class='input is-small') }}
+                </div>
+
+                <div class="field-body">
+                    <div class="field">
+                        {{ form.category.label(class='label') }}
+                        {{ form.category(class='input is-small') }}
+                    </div>
+                    <div class="field">
+                        {{ form.date.label(class='label') }}
+                        {{ form.date(class='input is-small') }}
+                    </div>
+                </div>
+
+                <div class="field-body">
+                    <div class="field">
+                        {{ form.price.label(class='label') }}
+                        {{ form.price(class='input is-small') }}
+                    </div>
+
+                    <div class="field">
+                        {{ form.count_places.label(class='label') }}
+                        {{ form.count_places(class='input is-small') }}
+                    </div>
+                </div>
+
+                <div hidden>
+                    {{ form.lat() }}
+                    {{ form.lng() }}
+                </div>
+
+                <div class="field" style="margin-top: 10px">
+                    <p class="control">
+                        <button class="button is-success" type="submit">Сохранить</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="column is-half">
+            <p><b>Расположение на карте</b></p>
+            <div id="map" style="width: 100%; height: 400px"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% endblock %}

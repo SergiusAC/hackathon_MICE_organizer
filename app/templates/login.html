@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-light">
+<head>
+    <meta charset="UTF-8">
+    <title>MICE APP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/css/bulma.min.css') }}">
+    <script src="{{ url_for('static', filename='lib/js/fontawesome.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+    <section class="top-navigation">
+        <div class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a href="{{ url_for('index') }}" class="navbar-item title is-3">MICE Organizer</a>
+            </div>
+        </div>
+    </section>
+
+    <hr style="margin: 0" class="has-background-grey-lighter">
+
+    <div class="container" style="margin-top: 1em">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">Авторизация</p>
+                    </header>
+                    <div class="card-content">
+                        <form action="{{ url_for('login') }}" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="field">
+                                {{ form.name.label(class='label') }}
+                                <div class="control">
+                                    {{ form.name(class='input') }}
+                                </div>
+                            </div>
+                            <div class="field">
+                                {{ form.password.label(class='label') }}
+                                <div class="control">
+                                    {{ form.password(class='input') }}
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-link">Войти</button>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-link is-light">
+                                        <a href="{{ url_for('regist') }}">Регистрация</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='lib/js/jquery.min.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

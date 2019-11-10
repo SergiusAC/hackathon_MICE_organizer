@@ -1,0 +1,36 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title is-4">{{ event.name }}</h2>
+    <div class="columns">
+        <div class="column">
+            <p><b>Организатор: </b>{{ event.user.name }}</p>
+            <p><b>Дата проведения: </b>{{ event.date }}</p>
+            <p><b>Описание: </b>{{ event.desc }}</p>
+            <p><b>Категория: </b>{{ event.category }}</p>
+            <p><b>Цена за билет: </b>{{ event.price }}</p>
+            <p><b>Кол-во мест: </b>{{ event.count_places }}</p>
+        </div>
+        <div class="column">
+            <p><b>Расположение</b></p>
+            <input type="text" id="lat" value="{{ event.lat }}" hidden>
+            <input type="text" id="lng" value="{{ event.lng }}" hidden>
+            <div id="map" style="width: 100%; height: 400px"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    DG.then(function() {
+        var map = DG.map('map', {
+            center: [{{ event.lat }}, {{ event.lng }}],
+            zoom: 15
+        });
+
+        DG.marker([{{ event.lat }}, {{ event.lng }}]).addTo(map);
+    });
+</script>
+{% endblock %}

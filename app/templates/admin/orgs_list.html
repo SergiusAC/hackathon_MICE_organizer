@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="title is-4">Список организаций</div>
+
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th><abbr title="#">#</abbr></th>
+                <th><abbr title="Название">Название</abbr></th>
+                <th><abbr title="Категория">Деятельность</abbr></th>
+                <th><abbr title="Дата">Город</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for org in orgs %}
+            <tr>
+                <td>{{ org.id }}</td>
+                <td><a href="{{ url_for('admin_events_org', org_id=org.id) }}">{{ org.name }}</a></td>
+                <td>{{ org.subject }}</td>
+                <td>{{ org.city }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

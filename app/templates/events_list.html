@@ -1,0 +1,31 @@
+{% extends 'app_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title is-4">Список мероприятий</h2>
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th><abbr title="#">#</abbr></th>
+                <th><abbr title="Название">Название</abbr></th>
+                <th><abbr title="Дата">Дата</abbr></th>
+                <th><abbr title="Категория">Категория</abbr></th>
+                <th><abbr title="Цена">Цена</abbr></th>
+                <th><abbr title="Кол-во мест">Кол-во мест</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td><a href="{{ url_for('show_event', id=event.id) }}">{{ event.name }}</a></td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.category }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.count_places }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
